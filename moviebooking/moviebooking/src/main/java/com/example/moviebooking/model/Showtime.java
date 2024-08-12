@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Document(collection = "showtimes")
@@ -16,6 +17,10 @@ public class Showtime {
     private Date endDate;
     private String movieId;
     private String theatreId;
+    private List<String> times; // List of showtimes in "HH:mm" format
+
+    // Getters and Setters
+    // (No changes here as Lombok's @Data generates them)
 
     public String getId() {
         return id;
@@ -63,5 +68,13 @@ public class Showtime {
 
     public void setTheatreId(String theatreId) {
         this.theatreId = theatreId;
+    }
+
+    public List<String> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<String> times) {
+        this.times = times;
     }
 }
