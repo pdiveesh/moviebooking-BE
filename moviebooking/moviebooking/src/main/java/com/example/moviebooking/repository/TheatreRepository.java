@@ -2,8 +2,9 @@ package com.example.moviebooking.repository;
 
 import com.example.moviebooking.model.Theatre;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
 public interface TheatreRepository extends MongoRepository<Theatre, String> {
+    List<Theatre> findByCity(String cityName);
+    // Query to find theatres by city name
 }

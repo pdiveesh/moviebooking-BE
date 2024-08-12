@@ -9,11 +9,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/movies")
-@CrossOrigin(origins = "*")
 public class MovieController {
-
     @Autowired
     private MovieService movieService;
 
@@ -23,25 +32,33 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable String id) {
-        return movieService.getMovieById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Movie getMovieById(@PathVariable String id) {
+        return movieService.getMovieById(id);
     }
 
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie) {
-        return movieService.addMovie(movie);
+    public Movie addMovie(@RequestBody Movie movie) {
+        System.out.println("Adding movie with theatres: " + movie.getTheatreIds()); // Debug statement
+        return movieService.addOrUpdateMovie(movie);
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable String id, @RequestBody Movie movieDetails) {
-        return ResponseEntity.ok(movieService.updateMovie(id, movieDetails));
+    public Movie updateMovie(@PathVariable String id, @RequestBody Movie movie) {
+        movie.setId(id);
+        return movieService.addOrUpdateMovie(movie);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable String id) {
+    public void deleteMovie(@PathVariable String id) {
         movieService.deleteMovie(id);
-        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/city/{cityName}")
+    public List<Movie> getMoviesByCity(@PathVariable String cityName) {
+        return movieService.getMoviesByCity(cityName);
+    }
+
+    @GetMapping("/theatre/{theatreName}")
+    public List<Movie> getMoviesByTheatre(@PathVariable String theatreName) {
+        return movieService.getMoviesByTheatre(theatreName);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/theatres")
@@ -22,8 +23,16 @@ public class TheatreController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Theatre> getTheatreById(@PathVariable String id) {
-        return theatreService.getTheatreById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return theatreService.getTheatreById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/city/{cityName}")
+    public List<Theatre> getTheatresByCity(@PathVariable String cityName) {
+        return theatreService.getTheatresByCity(cityName);
+    }
+
 
     @PostMapping
     public Theatre createTheatre(@RequestBody Theatre theatre) {

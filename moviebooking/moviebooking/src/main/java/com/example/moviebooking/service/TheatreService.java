@@ -22,12 +22,18 @@ public class TheatreService {
         return theatreRepository.findById(id);
     }
 
+    public List<Theatre> getTheatresByCity(String cityName) {
+        return theatreRepository.findByCity(cityName);
+    }
+
+
     public Theatre addTheatre(Theatre theatre) {
         return theatreRepository.save(theatre);
     }
 
     public Theatre updateTheatre(String id, Theatre theatreDetails) {
-        Theatre theatre = theatreRepository.findById(id).orElseThrow(() -> new RuntimeException("Theatre not found"));
+        Theatre theatre = theatreRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Theatre not found"));
         theatre.setName(theatreDetails.getName());
         theatre.setCity(theatreDetails.getCity());
         theatre.setTicketPrice(theatreDetails.getTicketPrice());

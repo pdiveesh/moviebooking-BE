@@ -1,12 +1,9 @@
 package com.example.moviebooking.model;
 
-import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
-import java.util.Date;
-
-@Data
 @Document(collection = "movies")
 public class Movie {
     @Id
@@ -18,9 +15,13 @@ public class Movie {
     private String director;
     private String trailer;
     private String description;
-    private int duration; // in minutes
-    private Date startDate;
-    private Date endDate;
+    private String duration;
+    private String startDate;
+    private String endDate;
+    private String cityName;
+    private List<String> theatreIds; // Changed from theatreNames to theatreIds
+
+    // Getters and setters...
 
     public String getId() {
         return id;
@@ -86,27 +87,43 @@ public class Movie {
         this.description = description;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public List<String> getTheatreIds() {
+        return theatreIds;
+    }
+
+    public void setTheatreIds(List<String> theatreIds) {
+        this.theatreIds = theatreIds;
     }
 }
