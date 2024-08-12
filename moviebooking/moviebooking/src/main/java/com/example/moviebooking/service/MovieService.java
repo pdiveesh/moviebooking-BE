@@ -35,4 +35,6 @@ public class MovieService {
     public List<Movie> getMoviesByTheatre(String theatreId) {
         return movieRepository.findByTheatreIdsContains(theatreId);
     }
+
+
 }

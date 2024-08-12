@@ -3,21 +3,8 @@ package com.example.moviebooking.controller;
 import com.example.moviebooking.model.Movie;
 import com.example.moviebooking.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -41,6 +28,7 @@ public class MovieController {
         System.out.println("Adding movie with theatres: " + movie.getTheatreIds()); // Debug statement
         return movieService.addOrUpdateMovie(movie);
     }
+
     @PutMapping("/{id}")
     public Movie updateMovie(@PathVariable String id, @RequestBody Movie movie) {
         movie.setId(id);
@@ -61,4 +49,6 @@ public class MovieController {
     public List<Movie> getMoviesByTheatre(@PathVariable String theatreName) {
         return movieService.getMoviesByTheatre(theatreName);
     }
+
+
 }

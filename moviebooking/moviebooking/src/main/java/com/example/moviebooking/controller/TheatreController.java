@@ -33,6 +33,13 @@ public class TheatreController {
         return theatreService.getTheatresByCity(cityName);
     }
 
+    @GetMapping("/byCityAndMovie")
+    public List<Theatre> getTheatresByCityAndMovieId(@RequestParam String cityName, @RequestParam String movieId) {
+        System.out.println("Received request with cityName: " + cityName + " and movieId: " + movieId);
+        List<Theatre> theatres = theatreService.findTheatresByCityAndMovieId(cityName, movieId);
+        System.out.println("Theatres returned by service: " + theatres);
+        return theatres;
+    }
 
     @PostMapping
     public Theatre createTheatre(@RequestBody Theatre theatre) {
