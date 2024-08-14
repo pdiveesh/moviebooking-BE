@@ -1,25 +1,38 @@
 package com.example.moviebooking.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "seats")
+@Document(collection = "seat")
 public class Seat {
     @Id
     private String id;
-    private String row;
-    private int number;
-    private boolean booked;
+    private String seatNumber;  // Added seatNumber field
+    private String movieId;
+    private String theatreId;
+    private double price;
+    private String status;
 
+    // Constructors, getters, and setters
     public Seat() {}
 
-    public Seat(String row, int number) {
-        this.row = row;
-        this.number = number;
-        this.booked = false;
+    public Seat(String seatNumber, String movieId, String theatreId, double price, String status) {
+        this.seatNumber = seatNumber;
+        this.movieId = movieId;
+        this.theatreId = theatreId;
+        this.price = price;
+        this.status = status;
     }
 
-    // Getters and Setters
+    // Getter and setter for seatNumber
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
     public String getId() {
         return id;
     }
@@ -28,27 +41,35 @@ public class Seat {
         this.id = id;
     }
 
-    public String getRow() {
-        return row;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setRow(String row) {
-        this.row = row;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
-    public int getNumber() {
-        return number;
+    public String getTheatreId() {
+        return theatreId;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setTheatreId(String theatreId) {
+        this.theatreId = theatreId;
     }
 
-    public boolean isBooked() {
-        return booked;
+    public double getPrice() {
+        return price;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
