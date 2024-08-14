@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -55,5 +56,14 @@ public class TheatreController {
     public ResponseEntity<Void> deleteTheatre(@PathVariable String id) {
         theatreService.deleteTheatre(id);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/{id}/book")
+    public ResponseEntity<?> bookSeats(@PathVariable String id, @RequestBody Set<String> seats) {
+        boolean success = theatreService.bookSeats(id, seats);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(400).body("Booking failed");
+        }
     }
 }

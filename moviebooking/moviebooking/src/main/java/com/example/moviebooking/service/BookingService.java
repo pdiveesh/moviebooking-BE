@@ -5,9 +5,8 @@ import com.example.moviebooking.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -15,16 +14,16 @@ public class BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    public Booking createBooking(String movieId, String theatreId, LocalDate date, LocalTime time, List<String> seatIds, String userId) {
-        Booking booking = new Booking(movieId, theatreId, date, time, seatIds, userId);
+    public Booking createBooking(Booking booking) {
+        // Add validation or additional processing here if needed
         return bookingRepository.save(booking);
     }
 
-    public List<Booking> getBookings(String movieId, String theatreId, LocalDate date, LocalTime time) {
-        return bookingRepository.findByMovieIdAndTheatreIdAndDateAndTime(movieId, theatreId, date, time);
+    public List<Booking> getBookingsByUserId(String userId) {
+        return bookingRepository.findByUserId(userId);
     }
 
-    public List<Booking> getBookingsBySeats(List<String> seatIds) {
-        return bookingRepository.findBySeatIdsIn(seatIds);
+    public Optional<Booking> getBookingById(String bookingId) {
+        return bookingRepository.findById(bookingId);
     }
 }

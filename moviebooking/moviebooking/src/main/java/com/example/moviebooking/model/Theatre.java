@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Data
 @Document(collection = "theatres")
 public class Theatre {
@@ -14,6 +16,15 @@ public class Theatre {
     private double ticketPrice;
     private int seats;
     private String image;
+    private Set<String> bookedSeats;
+
+    public Set<String> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(Set<String> bookedSeats) {
+        this.bookedSeats = bookedSeats;
+    }
 
     public String getId() {
         return id;

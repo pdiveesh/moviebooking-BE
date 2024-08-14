@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,5 +77,22 @@ public class TheatreService {
 
     public void deleteTheatre(String id) {
         theatreRepository.deleteById(id);
+    }
+
+    public boolean bookSeats(String theatreId, Set<String> seats) {
+        Theatre theatre = theatreRepository.findById(theatreId).orElse(null);
+        if (theatre == null) {
+            return false;
+        }
+
+        // Check if seats are already booked
+        if (theatre.getBookedSeats().containsAll(seats)) {
+            return false; // Seats already booked
+        }
+
+        // Update booked seats
+        theatre.getBookedSeats().addAll(seats);
+        theatreRepository.save(theatre);
+        return true;
     }
 }
